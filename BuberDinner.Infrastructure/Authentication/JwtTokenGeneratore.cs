@@ -1,4 +1,5 @@
 ﻿using BuberDinner.Application.Common.Interfaces.Authentication;
+using BuberDinner.Application.Common.Interfaces.Services;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
@@ -6,7 +7,7 @@ using System.Text;
 
 namespace BuberDinner.Infrastructure.Authentication
 {
-    public class JwtTokenGeneratore : IJwtTokenGenerator
+    public class JwtTokenGeneratore(IDateTimeProvider _dateTimeProvider) : IJwtTokenGenerator
     {
         public string GenerateToken(Guid userId, string firstName, string lastName)
         {
@@ -21,7 +22,7 @@ namespace BuberDinner.Infrastructure.Authentication
 
             var securityToken = new JwtSecurityToken(
                 issuer: "BubberDinner",
-                expires: DateTime.Now.AddDays(1),
+                expires: _dateTimeProvider.UtcNow.AddMinutes(60),
                 claims: claims,
                 signingCredentials: siginingCredentials);
             return new JwtSecurityTokenHandler().WriteToken(securityToken);
