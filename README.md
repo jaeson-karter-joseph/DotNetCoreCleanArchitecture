@@ -56,3 +56,11 @@ Ensure you have the following installed:
 ```bash
 git clone https://github.com/your-username/NetCoreCleanArchitecture.git
 cd NetCoreCleanArchitecture
+
+dotnet restore
+dotnet run --project src/Presentation/Presentation.csproj
+dotnet build
+dotnet test
+
+
+
