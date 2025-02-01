@@ -2,17 +2,19 @@
 using BuberDinner.Application.Common.Interfaces.Authentication;
 using BuberDinner.Application.Common.Interfaces.Persistence;
 using BuberDinner.Domain.Entites;
+using FluentResults;
+
 
 namespace BuberDinner.Application.Services.Authentication
 {
     public class AuthenticationService(IJwtTokenGenerator _jwtTokenGenerator, IUserRespository _userRespository) : IAuthenticationService
     {
-        public AuthenticationResult Register(string firstName, string lastName, string email, string password)
+        public Result<AuthenticationResult> Register(string firstName, string lastName, string email, string password)
         {
             //1. Validate the does not exsits
             if (_userRespository.GetUserByEmail(email) is not null)
             {
-                throw new DuplicateEmailException();
+                return Result.Fail<AuthenticationResult>(new[] { new DuplicateEmailError() });
             }
 
             //Create User (Generate unique ID)
