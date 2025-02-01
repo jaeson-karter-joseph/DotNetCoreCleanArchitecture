@@ -1,4 +1,5 @@
-﻿using BuberDinner.Application.Common.Interfaces.Authentication;
+﻿using BuberDinner.Application.Common.Errors;
+using BuberDinner.Application.Common.Interfaces.Authentication;
 using BuberDinner.Application.Common.Interfaces.Persistence;
 using BuberDinner.Domain.Entites;
 
@@ -9,11 +10,11 @@ namespace BuberDinner.Application.Services.Authentication
         public AuthenticationResult Register(string firstName, string lastName, string email, string password)
         {
             //1. Validate the does not exsits
-            if(_userRespository.GetUserByEmail(email) is not null)
+            if (_userRespository.GetUserByEmail(email) is not null)
             {
-                throw new Exception("User already exisits");
-            }   
-            
+                throw new DuplicateEmailException();
+            }
+
             //Create User (Generate unique ID)
             var user = new User
             {

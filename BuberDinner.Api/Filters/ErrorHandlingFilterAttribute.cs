@@ -15,7 +15,7 @@ namespace BuberDinner.Api.Filters
                 Title = "Ann Error Occured While Processing Request",
                 Detail = exception.Message,
                 Status = (int)HttpStatusCode.InternalServerError,
-                 
+
             };
             context.Result = new ObjectResult(problemDetails)
             {
