@@ -18,8 +18,4 @@
     <ProjectReference Include="..\BuberDinner.Infrastructure\BuberDinner.Infrastructure.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Common\Errors\" />
-  </ItemGroup>
-
 </Project>
