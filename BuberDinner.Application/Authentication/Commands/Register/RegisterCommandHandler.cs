@@ -11,6 +11,7 @@ namespace BuberDinner.Application.Authentication.Commands.Register
     {
         public async Task<ErrorOr<AuthenticationResult>> Handle(RegisterCommand command, CancellationToken cancellationToken)
         {
+            await Task.CompletedTask;
             if (_userRespository.GetUserByEmail(command.Email) is not null)
             {
                 return Domain.Errors.Errors.User.DuplicateEmail;
